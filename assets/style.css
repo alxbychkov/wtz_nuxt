@@ -70,8 +70,30 @@ html {
 .item-footer {
   padding: 10px 10px 8px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+
+.item-count {
+  display: flex;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.item-count-minus,
+.item-count-plus {
+  margin-right: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.item-price {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: right;
+  user-select: none;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
