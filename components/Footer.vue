@@ -1,13 +1,17 @@
 <script setup>
 const total = useCounter();
+const route = useRoute();
+const pageHash = (route.hash && route.hash.indexOf('#page=') === 0) ? +route.hash.substr(6) : 1;
+const page = ref(pageHash);
 </script>
 <template>
   <div class="footer">
     <div class="pagination-block">
       <div class="pages">
-        <span>1 ... 19 </span>
-        <span class="current">20</span>
-        <span> ... 356</span>
+        <div v-if="page > 2">
+          <a href="/">1</a> ... <a :href="`#page=${page - 1}`">{{ page - 1 }}</a></div>
+        <div class="current">{{ page }}</div>
+        <div v-if="page < 356"> <a :href="`#page=${page + 1}`">{{ page + 1 }}</a> <span v-if="page < 355">...</span> <a href="#page=356" v-if="page < 355">356</a></div>
       </div>
       <div class="footer-cart">{{ total }} руб.</div>
     </div>
@@ -36,7 +40,8 @@ const total = useCounter();
   font-weight: bold;
 }
 .pages {
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 .footer-cart {
   font-weight: 700;

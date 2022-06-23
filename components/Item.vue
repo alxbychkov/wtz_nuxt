@@ -6,9 +6,9 @@
       </div>
       <div class="item-head__author">
         <p class="name">{{ photo.user.name }}</p>
-        <a :href="photo.user.links.html" target="_blank" class="name-link"
-          >@{{ photo.user.username }}</a
-        >
+        <NuxtLink :to="`/user/${photo.user.username}`" target="_blank" class="name-link">
+          @{{ photo.user.username }}
+        </NuxtLink>
       </div>
     </div>
     <div class="item-body">
@@ -35,12 +35,12 @@ const count = ref(0);
 const total = useCounter();
 const increment = () => {
   count.value++;
-  total.value += price.value;
+  total.value += +price;
 };
 const decrement = () => {
   if (count.value) {
     count.value--;
-    total.value -= price.value;
+    total.value -= +price;
   }
 };
 </script>
