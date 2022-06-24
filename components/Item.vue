@@ -6,7 +6,7 @@
       </div>
       <div class="item-head__author">
         <p class="name">{{ photo.user.name }}</p>
-        <NuxtLink :to="`/user/${photo.user.username}`" target="_blank" class="name-link">
+        <NuxtLink :to="`/user/${photo.user.username}`" class="name-link">
           @{{ photo.user.username }}
         </NuxtLink>
       </div>
