@@ -8,7 +8,6 @@ const props = defineProps({
 const emit = defineEmits(["changePage"]);
 
 const changePageHandler = (value) => {
-  console.log(props.page);
   emit("changePage", value);
 };
 </script>
@@ -17,18 +16,25 @@ const changePageHandler = (value) => {
     <div class="pagination-block">
       <div class="pages">
         <div v-if="page > 2">
-          <a href="/">1</a> ...
-          <a :href="`#page=${page - 1}`" @click="changePageHandler(page - 1)">{{
-            page - 1
-          }}</a>
+          <a href="/" @click.prevent="changePageHandler(1)">1</a> ...
+          <a
+            :href="`#page=${page - 1}`"
+            @click.prevent="changePageHandler(--page)"
+            >{{ page - 1 }}</a
+          >
         </div>
         <div class="current">{{ page }}</div>
         <div v-if="page < 356">
-          <a :href="`#page=${page + 1}`" @click="changePageHandler(page + 1)">{{
-            page + 1
-          }}</a>
+          <a
+            :href="`#page=${page + 1}`"
+            @click.prevent="changePageHandler(++page)"
+            >{{ page + 1 }}</a
+          >
           <span v-if="page < 355">...</span>
-          <a href="#page=356" v-if="page < 355" @click="changePageHandler(356)"
+          <a
+            href="#page=356"
+            v-if="page < 355"
+            @click.prevent="changePageHandler(356)"
             >356</a
           >
         </div>

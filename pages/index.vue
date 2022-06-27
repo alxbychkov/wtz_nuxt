@@ -1,37 +1,36 @@
 <template>
-  <div class="container">
-    <Item v-for="photo in photos" :key="photo.id" :photo="photo" />
-    <Footer :page="page" @changePage="changePage" />
+  <div>
+    <div class="container">
+      <Item v-for="photo in photos" :key="photo.id" :photo="photo" />
+      <Footer :page="page" @changePage="changePage" />
+    </div>
   </div>
 </template>
 <script setup>
 import { useFetch } from "#app";
 
 const route = useRoute();
-const API_KEY = "oNY7ILLJAH6J5_904imiLFyCY_8boZZnWMsrg2RH0Ig";
+const router = useRouter();
 const photos = ref([]);
 
 const pageHash =
   route.hash && route.hash.indexOf("#page=") === 0 ? +route.hash.substr(6) : 1;
 const page = ref(pageHash);
 
-const renderPhotos = async (value = "") => {
-  const page = value ? value : pageHash;
-  const URL = `https://api.unsplash.com/photos?page=${page}&per_page=30&client_id=${API_KEY}`;
-  const { data } = await useFetch(URL);
+const renderPhotos = async () => {
+  const { data } = await useFetch(`/api/photos/${page.value}`);
 
-  return data.value;
+  photos.value = data.value;
 };
 
-const getPhotos = async (value = "") => {
-  photos.value = await renderPhotos(value ? value : "");
-};
+await renderPhotos();
 
-await getPhotos(1);
+const changePage = async (value) => {
+  renderPhotos(value);
 
-const changePage = (value) => {
-  getPhotos(value);
   page.value = value;
-  console.log("index:", value);
+
+  if (value !== 1) router.push({ hash: `#page=${value}` });
+  else if (route.hash) router.push({ hash: "" });
 };
 </script>
