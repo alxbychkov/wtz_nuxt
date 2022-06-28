@@ -5,38 +5,23 @@ const props = defineProps({
   page: Number,
 });
 
-const emit = defineEmits(["changePage"]);
-
-const changePageHandler = (value) => {
-  emit("changePage", value);
-};
+const next = (props.page + 1).toString();
+const prev = (props.page - 1).toString();
 </script>
 <template>
   <div class="footer">
     <div class="pagination-block">
       <div class="pages">
-        <div v-if="page > 2">
-          <a href="/" @click.prevent="changePageHandler(1)">1</a> ...
-          <a
-            :href="`#page=${page - 1}`"
-            @click.prevent="changePageHandler(--page)"
-            >{{ page - 1 }}</a
-          >
+        <div v-if="page > 1">
+          <NuxtLink to="/" v-if="page > 2">1</NuxtLink>
+          <span v-if="page > 2">...</span>
+          <NuxtLink :to="`/page/${prev}`">{{ prev }} </NuxtLink>
         </div>
         <div class="current">{{ page }}</div>
-        <div v-if="page < 356">
-          <a
-            :href="`#page=${page + 1}`"
-            @click.prevent="changePageHandler(++page)"
-            >{{ page + 1 }}</a
-          >
-          <span v-if="page < 355">...</span>
-          <a
-            href="#page=356"
-            v-if="page < 355"
-            @click.prevent="changePageHandler(356)"
-            >356</a
-          >
+        <div v-if="page < 354">
+          <NuxtLink :to="`/page/${next}`">{{ next }} </NuxtLink>
+          <span v-if="page < 353">...</span>
+          <NuxtLink v-if="page < 353" to="/page/354">354</NuxtLink>
         </div>
       </div>
       <div class="footer-cart">{{ total }} руб.</div>
