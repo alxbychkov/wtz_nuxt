@@ -5,7 +5,8 @@ export default defineNuxtConfig({
         head: {
             link: [
                 { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap&subset=cyrillic' },
-                { rel: 'stylesheet', href: '/assets/style.css' },
+                { rel: 'stylesheet', href: '/style.css' },
+                { rel: "icon",  type: 'image/ico',  href: '/favicon.ico'}
               ],
         }
     }
