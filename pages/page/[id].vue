@@ -4,12 +4,13 @@
     <Pagination :page="page" />
   </div>
 </template>
-<script setup>
-import { usePhotos } from "../../composables/usePhotos";
+<script setup lang="ts">
+import { Ref } from "vue";
+import { usePhotos } from "../../composables/api";
 
 const route = useRoute();
-const page = +route.params.id;
-const photos = ref([]);
+const page = +route.params.id as Number;
+const photos = ref<Ref>([] as any);
 
 photos.value = await usePhotos(page);
 </script>

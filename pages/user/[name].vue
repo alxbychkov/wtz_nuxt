@@ -1,11 +1,11 @@
-<script setup>
-import { useFetch } from "#app";
+<script setup lang="ts">
+import { Ref } from "vue";
+import { useUsers } from "../../composables/api";
 
 const route = useRoute();
-const username = route.params.name;
-const API_KEY = "oNY7ILLJAH6J5_904imiLFyCY_8boZZnWMsrg2RH0Ig";
-const URL = `https://api.unsplash.com/users/${username}?client_id=${API_KEY}`;
-const user = (await useFetch(URL)).data;
+const username = route.params.name as string;
+const user = ref<Ref>("" as any);
+user.value = await useUsers(username);
 </script>
 <template>
   <div class="container">

@@ -29,10 +29,11 @@ const props = defineProps({
   photo: Object,
 });
 
-const setPrice = (a) => Math.floor(a * 678);
+const setPrice = (num) => Math.floor(num * 678);
 const price = setPrice(props.photo.likes);
 const count = ref(0);
 const total = useCounter();
+
 const increment = () => {
   count.value++;
   total.value += +price;
